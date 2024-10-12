@@ -19,7 +19,7 @@ jobs:
         dotnet-version: '8.0.x'  # Use the latest version of .NET 8
 
     - name: Restore dependencies
-      run: dotnet restore  # Restore NuGet packages
+      run: dotnet restore Steve.Merkle/Steve.Merkle.sln  # Restore NuGet packages
 
     - name: Get version from Steve.Merkle.Core.csproj
       id: get_version
