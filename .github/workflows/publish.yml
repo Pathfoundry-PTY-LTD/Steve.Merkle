@@ -21,17 +21,17 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Steve.Merkle/Steve.Merkle.sln  # Restore NuGet packages
 
-    - name: Get version from Steve.Merkle.Core.csproj
+    - name: Get version from Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj
       id: get_version
       run: |
-        version=$(grep '<Version>' Steve.Merkle.Core.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
+        version=$(grep '<Version>' Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
         echo "VERSION=$version" >> $GITHUB_ENV # Set the version as environment variable
 
     - name: Build
-      run: dotnet build Steve.Merkle.Core.csproj --no-restore --configuration Release # Build the project
+      run: dotnet build Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj --no-restore --configuration Release # Build the project
 
     - name: Pack
-      run: dotnet pack Steve.Merkle.Core.csproj --no-build --configuration Release --output ./artifacts /p:PackageVersion=${{ env.VERSION }} # Pack the NuGet package
+      run: dotnet pack Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj --no-build --configuration Release --output ./artifacts /p:PackageVersion=${{ env.VERSION }} # Pack the NuGet package
 
     - name: Publish to NuGet
       env:
