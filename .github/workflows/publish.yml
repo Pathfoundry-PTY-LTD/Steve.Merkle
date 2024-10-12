@@ -1,0 +1,39 @@
+name: Publish to NuGet
+
+on:
+  push:
+    branches:
+      - master # Publish on pushes to the 'master' branch
+
+jobs:
+  publish:
+    name: Build, Pack & Publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3  # Checkout code from the repository
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3 # Set up .NET environment
+      with:
+        dotnet-version: '8.0.x'  # Use the latest version of .NET 8
+
+    - name: Restore dependencies
+      run: dotnet restore  # Restore NuGet packages
+
+    - name: Get version from Steve.Merkle.Core.csproj
+      id: get_version
+      run: |
+        version=$(grep '<Version>' Steve.Merkle/Steve.Merkle.Core.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
+        echo "VERSION=$version" >> $GITHUB_ENV # Set the version as environment variable
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release # Build the project
+
+    - name: Pack
+      run: dotnet pack Steve.Merkle/Steve.Merkle.Core.csproj --no-build --configuration Release --output ./artifacts /p:PackageVersion=${{ env.VERSION }} # Pack the NuGet package
+
+    - name: Publish to NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }} # Access the NuGet API key from a secret
+      run: dotnet nuget push ./artifacts/*.nupkg -k $NUGET_API_KEY -s https://api.nuget.org/v3/index.json  # Push the package to NuGet.org

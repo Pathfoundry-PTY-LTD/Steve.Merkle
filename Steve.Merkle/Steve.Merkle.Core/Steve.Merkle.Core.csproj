@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Company>Philip Laureano</Company>
+        <Description>A Merkle Tree Implementation in C#.</Description>
+        <Copyright>Copyright © Philip Laureano. All rights reserved</Copyright>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/philiplaureano/CCM</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/philiplaureano/CCM</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>LLM</PackageTags>
+        <PackageId>Steve.Merkle.Core</PackageId>
+        <PackageVersion>$(Version)</PackageVersion>
+        <Version>0.0.1</Version>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+</Project>
