@@ -14,7 +14,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
     - name: Restore dependencies
-      run: dotnet restore CCM.sln
+      run: dotnet restore Steve.Merkle/Steve.Merkle.sln
     - name: Build
       run: dotnet build Steve.Merkle/Steve.Merkle.sln --configuration Release
     - name: Test
