@@ -7,8 +7,8 @@
         <Description>A Merkle Tree Implementation in C#.</Description>
         <Copyright>Copyright © Philip Laureano. All rights reserved</Copyright>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/philiplaureano/CCM</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/philiplaureano/CCM</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/philiplaureano/Steve.Merkle</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/philiplaureano/Steve.Merkle</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>LLM</PackageTags>
         <PackageId>Steve.Merkle.Core</PackageId>
