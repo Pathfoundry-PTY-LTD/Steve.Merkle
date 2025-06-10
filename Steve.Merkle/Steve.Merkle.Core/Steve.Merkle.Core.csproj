@@ -13,7 +13,7 @@
         <PackageTags>LLM</PackageTags>
         <PackageId>Steve.Merkle.Core</PackageId>
         <PackageVersion>$(Version)</PackageVersion>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
