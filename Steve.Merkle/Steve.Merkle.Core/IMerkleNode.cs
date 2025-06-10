@@ -7,6 +7,8 @@ public interface IMerkleNode<T>
     T Data { get; }
     string Hash { get; }
     bool IsLeaf { get; }
-
-    void ComputeHash(); // Computes the hash for this node, based on data or child nodes.
+    IMerkleNode<T> Left { get; }
+    IMerkleNode<T> Right { get;}
+    IMerkleNode<T> Parent { get; set; }
+    void ComputeHash(); 
 }

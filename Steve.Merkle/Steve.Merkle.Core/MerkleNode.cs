@@ -7,7 +7,7 @@ namespace Steve.Merkle.Core;
 /// Represents a node in the Merkle Tree, either a leaf or an internal node.
 /// </summary>
 /// <typeparam name="T">The type of data stored in the node.</typeparam>
-public class MerkleNode<T>
+public class MerkleNode<T> : IMerkleNode<T>
 {
     /// <summary>
     /// The data stored in the node. For leaf nodes, this is the actual data.
@@ -30,17 +30,17 @@ public class MerkleNode<T>
     /// <summary>
     /// Reference to the left child node. Null for leaf nodes.
     /// </summary>
-    public MerkleNode<T> Left { get; private set; }
+    public IMerkleNode<T> Left { get; private set; }
 
     /// <summary>
     /// Reference to the right child node. Null for leaf nodes.
     /// </summary>
-    public MerkleNode<T> Right { get; private set; }
+    public IMerkleNode<T> Right { get; private set; }
 
     /// <summary>
     /// Reference to the parent node. Null for the root node.
     /// </summary>
-    public MerkleNode<T> Parent { get; set; }
+    public IMerkleNode<T> Parent { get; set; }
 
     private readonly Func<T, string> _hashFunction;
 
@@ -62,7 +62,7 @@ public class MerkleNode<T>
     /// </summary>
     /// <param name="left">The left child node.</param>
     /// <param name="right">The right child node.</param>
-    public MerkleNode(MerkleNode<T> left, MerkleNode<T> right)
+    public MerkleNode(IMerkleNode<T> left, IMerkleNode<T> right)
     {
         Left = left;
         Right = right;

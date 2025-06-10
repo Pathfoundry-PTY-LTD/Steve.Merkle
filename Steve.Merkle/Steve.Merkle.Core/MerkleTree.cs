@@ -4,12 +4,12 @@
 /// Represents the Merkle Tree, providing functionality to manage the tree and compute hashes.
 /// </summary>
 /// <typeparam name="T">The type of data stored in the tree's leaf nodes.</typeparam>
-public class MerkleTree<T>
+public class MerkleTree<T> : IMerkleTree<T>
 {
     /// <summary>
     /// The root node of the Merkle Tree. The root hash represents the entire state of the tree.
     /// </summary>
-    public MerkleNode<T> Root { get; private set; }
+    public IMerkleNode<T> Root { get; private set; }
 
     private readonly List<MerkleNode<T>> _leafNodes;
     private readonly Func<T, string> _hashFunction;
@@ -120,7 +120,7 @@ public class MerkleTree<T>
     /// Traverses the Merkle Tree and applies the specified action to each node.
     /// </summary>
     /// <param name="nodeAction">The action to apply to each node.</param>
-    public void TraverseTree(Action<MerkleNode<T>> nodeAction)
+    public void TraverseTree(Action<IMerkleNode<T>> nodeAction)
     {
         if (nodeAction == null)
             throw new ArgumentNullException(nameof(nodeAction));
@@ -136,7 +136,7 @@ public class MerkleTree<T>
     /// </summary>
     /// <param name="node">The current node being traversed.</param>
     /// <param name="nodeAction">The action to apply to each node.</param>
-    private void TraverseNode(MerkleNode<T> node, Action<MerkleNode<T>> nodeAction)
+    private void TraverseNode(IMerkleNode<T> node, Action<IMerkleNode<T>> nodeAction)
     {
         if (node == null)
             return;
