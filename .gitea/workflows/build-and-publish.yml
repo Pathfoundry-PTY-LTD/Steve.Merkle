@@ -32,8 +32,8 @@ jobs:
 
       - name: Configure NuGet source
         run: |
-          dotnet nuget add source "$BAGET_URL" --name satori-baget --allow-insecure-connections || \
-          dotnet nuget update source satori-baget --source "$BAGET_URL" --allow-insecure-connections
+          dotnet nuget add source "$BAGET_URL" --name satori-baget || \
+          dotnet nuget update source satori-baget --source "$BAGET_URL"
           dotnet nuget list source
 
       - name: Restore dependencies
