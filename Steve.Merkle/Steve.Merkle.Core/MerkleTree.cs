@@ -1,4 +1,9 @@
-﻿namespace Steve.Merkle.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Steve.Merkle.Core
+{
 
 /// <summary>
 /// Represents the Merkle Tree, providing functionality to manage the tree and compute hashes.
@@ -183,4 +188,5 @@ public class MerkleTree<T> : IMerkleTree<T>
         Root = nodes[0];
         _rootHash = Root.Hash;
     }
+}
 }

@@ -1,4 +1,7 @@
-﻿namespace Steve.Merkle.Core;
+using System;
+
+namespace Steve.Merkle.Core
+{
 
 public interface IMerkleTree<T>
 {
@@ -43,4 +46,5 @@ public interface IMerkleTree<T>
     /// </summary>
     /// <param name="nodeAction">The action to apply to each node.</param>
     void TraverseTree(Action<IMerkleNode<T>> nodeAction);
+}
 }

@@ -1,0 +1,66 @@
+name: Build and Publish to BaGet
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+env:
+  BAGET_URL: http://satori-baget:80/v3/index.json
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20-bookworm
+      options: --network satori-shared
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET SDK
+        run: |
+          apt-get update
+          apt-get install -y wget
+          wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+          chmod +x dotnet-install.sh
+          ./dotnet-install.sh --channel 8.0 --install-dir /usr/share/dotnet
+          ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+          dotnet --version
+
+      - name: Configure NuGet source
+        run: |
+          dotnet nuget add source "$BAGET_URL" --name satori-baget --allow-insecure-connections || \
+          dotnet nuget update source satori-baget --source "$BAGET_URL" --allow-insecure-connections
+          dotnet nuget list source
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --configuration Release --verbosity normal
+
+      - name: Get Version from Tag
+        id: version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG_NAME#v}
+          echo "Tag: $TAG_NAME, Version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Pack
+        run: |
+          dotnet pack Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj --configuration Release -p:Version=${{ steps.version.outputs.VERSION }} -o ./packages
+          ls -la ./packages/
+
+      - name: Push to BaGet
+        run: |
+          dotnet nuget push "./packages/*.nupkg" \
+            --api-key "${{ secrets.BAGET_API_KEY }}" \
+            --source "$BAGET_URL" \
+            --skip-duplicate

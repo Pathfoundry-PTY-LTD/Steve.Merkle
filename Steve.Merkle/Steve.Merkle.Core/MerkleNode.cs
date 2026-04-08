@@ -1,7 +1,9 @@
-﻿using System.Security.Cryptography;
+using System;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace Steve.Merkle.Core;
+namespace Steve.Merkle.Core
+{
 
 /// <summary>
 /// Represents a node in the Merkle Tree, either a leaf or an internal node.
@@ -106,4 +108,5 @@ public class MerkleNode<T> : IMerkleNode<T>
             return BitConverter.ToString(hashBytes).Replace("-", "");
         }
     }
+}
 }

@@ -1,6 +1,5 @@
-﻿using System.Buffers;
-
-namespace Steve.Merkle.Core;
+namespace Steve.Merkle.Core
+{
 
 public interface IMerkleNode<T>
 {
@@ -10,5 +9,6 @@ public interface IMerkleNode<T>
     IMerkleNode<T> Left { get; }
     IMerkleNode<T> Right { get;}
     IMerkleNode<T> Parent { get; set; }
-    void ComputeHash(); 
+    void ComputeHash();
+}
 }
