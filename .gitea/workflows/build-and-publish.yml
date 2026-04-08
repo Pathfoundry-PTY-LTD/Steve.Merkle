@@ -57,8 +57,5 @@ jobs:
           ls -la ./packages/
 
       - name: Push to BaGet
-        run: >
-          dotnet nuget push "./packages/*.nupkg"
-          --api-key ${{ secrets.BAGET_API_KEY }}
-          --source ${{ env.BAGET_URL }}
-          --skip-duplicate
+        run: |
+          dotnet nuget push "./packages/*.nupkg" --api-key ${{ secrets.BAGET_API_KEY }} --source ${{ env.BAGET_URL }} --skip-duplicate
