@@ -15,6 +15,10 @@ jobs:
       image: node:20-bookworm
       options: --network satori-shared
 
+    defaults:
+      run:
+        working-directory: Steve.Merkle
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -55,7 +59,7 @@ jobs:
 
       - name: Pack
         run: |
-          dotnet pack Steve.Merkle/Steve.Merkle.Core/Steve.Merkle.Core.csproj --configuration Release -p:Version=${{ steps.version.outputs.VERSION }} -o ./packages
+          dotnet pack Steve.Merkle.Core/Steve.Merkle.Core.csproj --configuration Release -p:Version=${{ steps.version.outputs.VERSION }} -o ./packages
           ls -la ./packages/
 
       - name: Push to BaGet
