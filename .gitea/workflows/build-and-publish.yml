@@ -34,12 +34,6 @@ jobs:
           ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
           dotnet --version
 
-      - name: Configure NuGet source
-        run: |
-          dotnet nuget add source "$BAGET_URL" --name satori-baget || \
-          dotnet nuget update source satori-baget --source "$BAGET_URL"
-          dotnet nuget list source
-
       - name: Restore dependencies
         run: dotnet restore
 
@@ -63,8 +57,8 @@ jobs:
           ls -la ./packages/
 
       - name: Push to BaGet
-        run: |
-          dotnet nuget push "./packages/*.nupkg" \
-            --api-key "${{ secrets.BAGET_API_KEY }}" \
-            --source "$BAGET_URL" \
-            --skip-duplicate
+        run: >
+          dotnet nuget push "./packages/*.nupkg"
+          --api-key ${{ secrets.BAGET_API_KEY }}
+          --source ${{ env.BAGET_URL }}
+          --skip-duplicate
