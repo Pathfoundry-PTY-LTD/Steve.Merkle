@@ -58,4 +58,8 @@ jobs:
 
       - name: Push to BaGet
         run: |
-          dotnet nuget push "./packages/*.nupkg" --api-key ${{ secrets.BAGET_API_KEY }} --source ${{ env.BAGET_URL }} --skip-duplicate
+          echo "Pushing to BaGet..."
+          echo "Source: http://satori-baget:80/v3/index.json"
+          echo "Package files:"
+          ls -la ./packages/
+          dotnet nuget push "./packages/*.nupkg" --api-key ${{ secrets.BAGET_API_KEY }} --source http://satori-baget:80/v3/index.json --skip-duplicate
